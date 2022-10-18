@@ -1,0 +1,33 @@
+﻿@using front_to_back.Areas.Admin.ViewModels;
+@model WorkIndexViewModel
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Work Components</h4>
+            <a asp-action="create" asp-controller="work" asp-area="admin" class="btn btn-success">Add</a>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Title</th>
+                            <th>Text</th>
+                            <th>FilePath</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var recentWorkComponent in Model.RecentWorkComponents)
+                        {
+                            <tr>
+                                <td>@recentWorkComponent.Id</td>
+                                <td>@recentWorkComponent.Title</td>
+                                <td>@recentWorkComponent.Text</td>
+                                <td>@recentWorkComponent.FilePath</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
