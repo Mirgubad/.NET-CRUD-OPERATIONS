@@ -11,6 +11,7 @@
                         <tr>
                             <th>Id</th>
                             <th>Title</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -19,6 +20,12 @@
                             <tr>
                                 <td>@category.Id</td>
                                 <td>@category.Title</td>
+                                <td>
+                                    <a asp-route-id="@category.Id" asp-action="update" asp-controller="category" asp-area="admin" class="btn btn-primary" >Update</a>
+                                    <a asp-route-id="@category.Id" asp-action="delete" asp-controller="category" asp-area="admin" class="btn btn-danger">Delete</a>
+                                    <a asp-route-id="@category.Id" asp-action="read" asp-controller="category" asp-area="admin" class="btn btn-warning">Details</a>
+
+                                </td>
                             </tr>
                             }
                     </tbody>

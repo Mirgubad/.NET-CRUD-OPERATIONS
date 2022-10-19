@@ -7,8 +7,7 @@
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Category Adder</h4>
-                         
+                        <h4 class="card-title">Category Adder</h4>                  
                         <form method="post" asp-action="create" asp-controller="category" asp-area="admin" class="forms-sample">
                             <div class="form-group">
                                     <label asp-for="Title">Title</label>
@@ -16,7 +15,7 @@
                                <span class="text-danger" asp-validation-for="Title"></span>
                             </div>
                             <button type="submit" class="btn btn-primary me-2">Submit</button>
-                            <button class="btn btn-light">Cancel</button>
+                            <button asp-action="index" asp-controller="category" asp-area="admin" class="btn btn-light">Cancel</button>
                         </form>
                     </div>
                 </div>

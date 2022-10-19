@@ -16,7 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(x => x.UseSqlServer(connectionString
 
 var app = builder.Build();
 app.MapControllerRoute(
-    name: "areas",
+    name: "area",
     pattern: "{area:exists}/{controller=dashboard}/{action=index}/{id?}");
 app.MapControllerRoute(
     name:"default",

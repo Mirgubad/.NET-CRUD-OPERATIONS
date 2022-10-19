@@ -13,9 +13,8 @@ namespace front_to_back.Areas.Admin.Controllers
     {
         private readonly AppDbContext _appDbContext;
      
-        public IActionResult Index()
+        public async Task< IActionResult> Index()
         {
-
             return View();
         }
 

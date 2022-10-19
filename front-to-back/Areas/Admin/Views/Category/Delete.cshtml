@@ -1,0 +1,34 @@
+﻿@using front_to_back.Areas.Admin;
+@using front_to_back.Models
+@model Category
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title"><span class="text-danger">DELETE</span> Components</h4>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Title</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Model.Id</td>
+                            <td>@Model.Title</td>
+                          
+                        </tr>
+                        <tr>
+                        </tr>
+                    </tbody>
+                </table>
+                <form class="pt-3" method="post" asp-route-id="@Model.Id" asp-action="deletecategory" asp-controller="category" asp-area="admin">
+                    <button onclick="action('Salam')" class="btn btn-danger">Delete</button>
+                    <button asp-action="index" asp-controller="category" asp-area="admin" class="btn btn-light">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
