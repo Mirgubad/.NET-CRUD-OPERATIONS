@@ -1,0 +1,38 @@
+﻿@using front_to_back.Areas.Admin.ViewModels;
+@model PricingIndexViewModel
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Pricing Table</h4>
+            <a asp-action="create" asp-controller="pricing" asp-area="admin" class="btn btn-success">Add pricing</a>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Title</th>
+                            <th>Description</th>                        
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var pricing in Model.Pricings)
+                        {
+                            <tr>
+                                <td>@pricing.Id</td>
+                                <td>@pricing.Title</td>
+                                <td>@pricing.Description</td>
+                                <td>
+                                    <a asp-route-id="@pricing.Id" asp-action="update" asp-controller="pricing" asp-area="admin" class="btn btn-primary">Update</a>
+                                    <a asp-route-id="@pricing.Id" asp-action="delete" asp-controller="pricing" asp-area="admin" class="btn btn-danger">Delete</a>
+                                    <a asp-route-id="@pricing.Id" asp-action="details" asp-controller="pricing" asp-area="admin" class="btn btn-warning mt-1">Details</a>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

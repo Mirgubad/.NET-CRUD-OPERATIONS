@@ -145,7 +145,7 @@
     <!-- End Choice -->
 
     <!-- Start Aim -->
-    <section class="banner-bg bg-white py-5">
+   @* <section class="banner-bg bg-white py-5">
         <div class="container my-4">
             <div class="row text-center">
                 @foreach (var name in Model.Aims)
@@ -162,7 +162,9 @@
             }
             </div>
         </div>
-    </section>
+    </section>*@
+
+@await Component.InvokeAsync("ObjectiveComponent")
     <!-- End Aim -->
 
     <!-- Start Contact -->

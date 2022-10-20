@@ -1,0 +1,39 @@
+﻿@using front_to_back.Models
+@model Pricing;
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Update Work Components </h4>
+
+                        <form method="post" asp-action="update" asp-controller="pricing" asp-area="admin" class="forms-sample">
+                            <div class="form-group">
+                                <label asp-for="Title">Title</label>
+                                <input asp-for="Title" class="form-control">
+                             
+                                <span class="text-danger p-1" asp-validation-for="Title"></span>
+                               
+                                <label asp-for="Description">Title</label>
+                                <input asp-for="Description" class="form-control">
+                                <span class="text-danger p-1" asp-validation-for="Description"></span>
+                                <label asp-for="Cost">Title</label>
+                                <input asp-for="Cost" class="form-control">
+                                <span class="text-danger p-1" asp-validation-for="Cost"></span>
+                            </div>
+                            <button type="submit" class="btn btn-primary me-2">Submit</button>
+                            <button class="btn btn-light" asp-action="update" asp-controller="pricing" asp-area="admin">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    @await Html.PartialAsync("_FormValidationPartial")
+}

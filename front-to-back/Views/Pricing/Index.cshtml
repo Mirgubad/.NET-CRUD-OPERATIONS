@@ -1,4 +1,9 @@
-﻿ <!-- Start pricing -->
+﻿@using front_to_back.ViewModels;
+@model PricingIndexViewModel;
+
+
+
+<!-- Start pricing -->
 <div class="container-lg py-5">
     <div class="col-md-12 m-auto text-center py-5">
         <h1 class="pricing-header h2 semi-bold-600">Pricing</h1>
@@ -77,30 +82,37 @@
 <!-- End Content -->
 <!-- Start Pricing Horizontal Section -->
 <section class="bg-light pt-sm-0 py-5">
-    <div class="container py-5">
+    <div  class="container py-5" id="ourpricing">
 
         <h1 class="h2 semi-bold-600 text-center mt-2">Our Pricing</h1>
         <p class="text-center pb-5 light-300">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut facilisis.</p>
 
-        <!-- Start Pricing Horizontal -->
-        <div class="pricing-horizontal row col-10 m-auto d-flex shadow-sm rounded overflow-hidden bg-white">
-            <div class="pricing-horizontal-icon col-md-3 text-center bg-secondary text-light py-4">
-                <i class="display-1 bx bx-package pt-4"></i>
-                <h5 class="h5 semi-bold-600 pb-4 light-300">Free</h5>
-            </div>
-            <div class="pricing-horizontal-body offset-lg-1 col-md-5 col-lg-4 d-flex align-items-center pl-5 pt-lg-0 pt-4">
-                <ul class="text-left px-4 list-unstyled mb-0 light-300">
-                    <li><i class="bx bxs-circle me-2"></i>5 Users</li>
-                    <li><i class="bx bxs-circle me-2"></i>2 TB space</li>
-                    <li><i class="bx bxs-circle me-2"></i>Community Forums</li>
-                </ul>
-            </div>
-            <div class="pricing-horizontal-tag col-md-4 text-center pt-3 d-flex align-items-center">
-                <div class="w-100 light-300">
-                    <p>$0</p>
-                    <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3">Get Now</a>
+        @foreach (var pricing in Model.Pricings)
+        {
+            <div class="pricing-horizontal row col-10 m-auto d-flex shadow-sm rounded overflow-hidden bg-white mb-3">
+                <div class="pricing-horizontal-icon col-md-3 text-center bg-secondary text-light py-4">
+                    <i class="display-1 bx bx-package pt-4"></i>
+                    <h5 class="h5 semi-bold-600 pb-4 light-300">@pricing.Title</h5>
                 </div>
+                <div class="pricing-horizontal-body offset-lg-1 col-md-5 col-lg-4 d-flex align-items-center pl-5 pt-lg-0 pt-4">
+                    <ul class="text-left px-4 list-unstyled mb-0 light-300">
+                        @Html.Raw(pricing.Description)
+                    </ul>
+                </div>
+                <div class="pricing-horizontal-tag col-md-4 text-center pt-3 d-flex align-items-center">
+                    <div class="w-100 light-300">
+                        <p>$@pricing.Cost</p>
+                        <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3">Get Now</a>
+                    </div>
+                </div>
+
             </div>
+        }
+       
+
+        <!-- Start Pricing Horizontal -->
+       @* 
+            <button class="btn btn-primary">Load More  <i class="fa fa-arrow-down" aria-hidden="true"></i></button>
         </div>
         <!-- End Pricing Horizontal -->
         <!-- Start Pricing Horizontal -->
@@ -144,10 +156,13 @@
                     <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3">Get Now</a>
                 </div>
             </div>
-        </div>
+        </div>*@
         <!-- End Pricing Horizontal -->
 
     </div>
+     <div class="d-flex justify-content-center mt-3">
+            <button id="loadMorePricing" class="btn btn-primary">Load More  <i class="fa fa-arrow-down" aria-hidden="true"></i></button>
+        </div>
 </section>
 <!--End Pricing Horizontal Section-->
 

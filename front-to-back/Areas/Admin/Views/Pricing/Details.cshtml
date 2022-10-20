@@ -1,0 +1,39 @@
+﻿@using front_to_back.Models
+@model Pricing;
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Details </h4>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>Cost</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@Model.Id</td>
+                                        <td>@Model.Title</td> 
+                                        <td>@Model.Description</td>
+                                        <td>@Model.Cost</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <a asp-action="index" asp-controller="pricing" asp-area="admin" class="btn btn-light  mt-3">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

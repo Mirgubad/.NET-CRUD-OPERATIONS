@@ -18,6 +18,10 @@ namespace front_to_back.DAL
         public DbSet<Category> Categories { get; set; }
         public DbSet <CategoryComponent> CategoryComponents { get; set; }
 
+        public DbSet<Pricing> Pricings { get; set; }
+
+        public DbSet<OurWork> OurWorks { get; set; }
+
 
 
     }

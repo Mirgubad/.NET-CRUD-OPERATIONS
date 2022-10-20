@@ -45,7 +45,7 @@ namespace front_to_back.Areas.Admin.Controllers
 
             if (isExist)
             {
-                ModelState.AddModelError("Title", "This name already exists");
+                ModelState.AddModelError("Title", "This name already in use");
                 return View(category);
             }
             await _appDbContext.Categories.AddAsync(category);

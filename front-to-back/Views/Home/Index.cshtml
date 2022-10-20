@@ -163,7 +163,7 @@
         <div class="recent-work-header row text-center pb-5">
             <h2 class="col-md-6 m-auto h2 semi-bold-600 py-5">Recent Works</h2>
         </div>
-        <div class="row gy-5 g-lg-5 mb-4">
+        <div id="recentWorkComponents" class="row gy-5 g-lg-5 mb-4">
 
             <!-- Start Recent Work -->
             @{foreach (var recentwork in Model.RecentWorkComponents)
@@ -179,14 +179,14 @@
                             </div>
                         </a>
                     </div>
-
-
                 }
-               
             }
-          
+        </div>
 
+        <div class="d-flex justify-content-center">
+            <button id="loadMore" class="btn btn-primary ">Load More...</button>
         </div>
     </div>
+   
 </section>
 <!-- End Recent Work -->
