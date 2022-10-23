@@ -6,5 +6,7 @@ namespace front_to_back.Areas.Admin.ViewModels
     {
 
         public List< RecentWorkComponent> RecentWorkComponents { get; set; }
+
+        public List<OurWork> OurWorks { get; set; }
     }
 }

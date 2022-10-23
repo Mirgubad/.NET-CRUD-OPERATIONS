@@ -1,0 +1,40 @@
+﻿@using front_to_back.Areas.Admin.ViewModels;
+@model CategoryIndexViewModel
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">CategoryComponents Table</h4>
+            <a asp-action="create" asp-controller="categoryComponent" asp-area="admin" class="btn btn-success">Add categoryComponent</a>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Category Id</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var categoryComponent in Model.CategoryComponents)
+                        {
+                            <tr>
+                                <td>@categoryComponent.Id</td>
+                                <td>@categoryComponent.Title</td>
+                                <td>@categoryComponent.Description</td>
+                                <td>@categoryComponent.CategoryId</td>
+                                <td>
+                                    <a asp-route-id="@categoryComponent.Id" asp-action="update" asp-controller="categorycomponent" asp-area="admin" class="btn btn-primary">Update</a>
+                                    <a asp-route-id="@categoryComponent.Id" asp-action="delete" asp-controller="categorycomponent" asp-area="admin" class="btn btn-danger">Delete</a>
+                                    <a asp-route-id="@categoryComponent.Id" asp-action="details" asp-controller="categorycomponent" asp-area="admin" class="btn btn-warning">Details</a>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

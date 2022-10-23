@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Xunit.Sdk;
 
 namespace front_to_back.Models
@@ -11,10 +12,11 @@ namespace front_to_back.Models
         public string Title { get; set; }
         public string Text { get; set; }
 
-        public string FilePath { get; set; }
- 
+        public string? FilePath { get; set; }
 
 
+        [NotMapped]
+        public IFormFile Photo { get; set; }
 
     }
 }

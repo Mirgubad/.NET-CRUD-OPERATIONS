@@ -10,18 +10,16 @@ namespace front_to_back.DAL
 
         }
 
-        public DbSet<RecentWorkComponent> RecentWorkComponents { get; set; }
-        public DbSet<ProjectComponent> ProjectComponents { get; set; }
-        public DbSet<ContractIntroComponent> ContractIntroComponent { get; set; }
+        public DbSet<RecentWorkComponent>? RecentWorkComponents { get; set; }
+        public DbSet<ProjectComponent>? ProjectComponents { get; set; }
+        public DbSet<ContractIntroComponent>? ContractIntroComponent { get; set; }
         public DbSet<CreateWithUs> CreateWithUs { get; set; }
-        public DbSet<ContactFormComponent> ContactFormComponents { get; set; }
+        public DbSet<ContactFormComponent>? ContactFormComponents { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet <CategoryComponent> CategoryComponents { get; set; }
-
-        public DbSet<Pricing> Pricings { get; set; }
-
-        public DbSet<OurWork> OurWorks { get; set; }
-
+        public DbSet <CategoryComponent>? CategoryComponents { get; set; }
+        public DbSet<Pricing>? Pricings { get; set; }
+        public DbSet<OurWork>? OurWorks { get; set; }
+      
 
 
     }

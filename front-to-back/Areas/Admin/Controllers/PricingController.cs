@@ -117,7 +117,7 @@ namespace front_to_back.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(int id,Pricing pricing)
+        public async Task<IActionResult> Details(int id)
         {
             var dbpricing = await _appDbContext.Pricings.FindAsync(id);
 

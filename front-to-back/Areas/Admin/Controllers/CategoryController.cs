@@ -24,14 +24,15 @@ namespace front_to_back.Areas.Admin.Controllers
         {
             var model = new CategoryIndexViewModel
             {
-                Categories = await _appDbContext.Categories.ToListAsync()
+                Categories = await _appDbContext.Categories.ToListAsync(),
+                CategoryComponents = await _appDbContext.CategoryComponents.ToListAsync()
             };
 
             return View(model);
         }
         [HttpGet]
         public async Task<IActionResult> Create()
-        {
+        {  
             return View();
         }
 
@@ -52,7 +53,6 @@ namespace front_to_back.Areas.Admin.Controllers
             await _appDbContext.SaveChangesAsync();
 
             return RedirectToAction("index");
-
         }
 
         [HttpGet]

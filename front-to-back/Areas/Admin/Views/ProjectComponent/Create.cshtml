@@ -1,0 +1,47 @@
+﻿@using front_to_back.Models
+@model ProjectComponent;
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Category Adder</h4>
+                        <form method="post"  class="forms-sample" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <div>
+                                    <label asp-for="Title">Title</label>
+                                    <input asp-for="Title" class="form-control">
+                                    <span class="text-danger" asp-validation-for="Title"></span>
+                                </div>
+                                <div>
+                                    <label asp-for="Photo">Photo</label>
+                                    <input asp-for="Photo" class="form-control">
+                                    <span class="text-danger" asp-validation-for="Photo"></span>
+                                </div>
+                                <div>
+                                    <label asp-for="Text">Text</label>
+                                    <input asp-for="Text" class="form-control">
+                                    <span class="text-danger" asp-validation-for="Text"></span>
+                                </div>
+                                  <div>
+                                    <label asp-for="Type">Type</label>
+                                    <input asp-for="Type" class="form-control">
+                                    <span class="text-danger" asp-validation-for="Type"></span>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary me-2">Submit</button>
+                            <a asp-action="index" asp-controller="projectcomponent" asp-area="admin" class="btn btn-light">Cancel</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    @await Html.PartialAsync("_FormValidationPartial")
+}
+
+

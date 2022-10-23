@@ -1,4 +1,5 @@
 ﻿using front_to_back.DAL;
+using front_to_back.Models;
 using front_to_back.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,17 +16,12 @@ namespace front_to_back.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var contractIntroComponent = await _appDbContext.ContractIntroComponent.FirstOrDefaultAsync();
-            var createwithUs=await _appDbContext.CreateWithUs.FirstOrDefaultAsync();
-            var contactFormComponent = await _appDbContext.ContactFormComponents.ToListAsync();
-
             var model = new ContactIndexViewModel
             {
-                ContractIntroComponent = contractIntroComponent,
-                CreateWithUs = createwithUs,
-                ContactFormComponent=contactFormComponent
+                ContractIntroComponent = await _appDbContext.ContractIntroComponent.FirstOrDefaultAsync(),
+                CreateWithUs = await _appDbContext.CreateWithUs.FirstOrDefaultAsync(),
+                ContactFormComponent = await _appDbContext.ContactFormComponents.ToListAsync()
             };
-
             return View(model);
         }
     }

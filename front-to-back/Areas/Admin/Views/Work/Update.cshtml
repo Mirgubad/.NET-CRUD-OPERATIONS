@@ -9,17 +9,24 @@
                     <div class="card-body">
                         <h4 class="card-title">Update Work Components </h4>
 
-                        <form method="post" asp-action="update" asp-controller="work" asp-area="admin" class="forms-sample">
+                        <form method="post" class="forms-sample" enctype="multipart/form-data">
                             <div class="form-group">
-                                <label asp-for="Title">Title</label>
-                                <input asp-for="Title" class="form-control">
-                                <br/>
-                                <span class="text-danger" asp-validation-for="Title"></span>
-                                <br />
-                                <label asp-for="Text">Text</label>
-                                <input asp-for="Text" class="form-control">
-                                <label asp-for="FilePath">FilePath</label>
-                                <input asp-for="FilePath" class="form-control">
+
+                                <div>
+                                    <label asp-for="Title">Title</label>
+                                    <input asp-for="Title" class="form-control">
+                                    <span class="text-danger" asp-validation-for="Title"></span>
+                                </div>
+                                <div>
+                                    <label asp-for="Text">Text</label>
+                                    <input asp-for="Text" class="form-control">
+                                    <span class="text-danger" asp-validation-for="Text"></span>
+                                </div>
+                                <div>
+                                    <label asp-for="Photo">Photo</label>
+                                    <input asp-for="Photo" class="form-control">
+                                    <span class="text-danger" asp-validation-for="Photo"></span>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary me-2">Submit</button>
                             <button class="btn btn-light" asp-action="update" asp-controller="work" asp-area="admin">Cancel</button>

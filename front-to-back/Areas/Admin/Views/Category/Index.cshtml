@@ -15,6 +15,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        
                             @foreach (var category in Model.Categories)
                             {
                             <tr>
@@ -26,8 +27,12 @@
                                     <a asp-route-id="@category.Id" asp-action="read" asp-controller="category" asp-area="admin" class="btn btn-warning">Details</a>
 
                                 </td>
+                              
                             </tr>
+
+                        
                             }
+
                     </tbody>
                 </table>
             </div>
