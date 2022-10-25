@@ -1,5 +1,6 @@
 ﻿using front_to_back.Areas.Admin.ViewModels;
 using front_to_back.DAL;
+using front_to_back.Helpers;
 using front_to_back.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.TagHelpers;
@@ -14,11 +15,13 @@ namespace front_to_back.Areas.Admin.Controllers
     {
         private readonly AppDbContext _appDbContext;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IFileService _fileService;
 
-        public WorkController(AppDbContext appDbContext, IWebHostEnvironment webHostEnvironment)
+        public WorkController(AppDbContext appDbContext, IWebHostEnvironment webHostEnvironment,IFileService fileService)
         {
             _appDbContext = appDbContext;
             _webHostEnvironment = webHostEnvironment;
+            _fileService = fileService;
         }
 
         public async Task<IActionResult> Index()
@@ -40,7 +43,6 @@ namespace front_to_back.Areas.Admin.Controllers
         public async Task<IActionResult> Create(RecentWorkComponent recentWorkComponent)
         {
 
-
             bool isExist = await _appDbContext.RecentWorkComponents
                 .AnyAsync(rw => rw.Title.ToLower().Trim() == recentWorkComponent.Title.ToLower().Trim());
 
@@ -50,30 +52,21 @@ namespace front_to_back.Areas.Admin.Controllers
                 return View(recentWorkComponent);
             }
 
-
-            if (!recentWorkComponent.Photo.ContentType.Contains("image/"))
+            if (!_fileService.CheckFile(recentWorkComponent.Photo))
             {
                 ModelState.AddModelError("Photo", "Incorrect type");
                 return View(recentWorkComponent);
             }
 
-            if (recentWorkComponent.Photo.Length / 1024 > 1000)
+            int maxSize = 1000;
+
+            if (!_fileService.MaxSize(recentWorkComponent.Photo,maxSize))
             {
-                ModelState.AddModelError("Photo", "Photo size must be 1000kb ");
+                ModelState.AddModelError("Photo", $"Photo size must be {maxSize}kb ");
                 return View(recentWorkComponent);
             }
-
-            string fileName = $"{Guid.NewGuid()}_{recentWorkComponent.Photo.FileName}";
-
-            string path = Path.Combine(_webHostEnvironment.WebRootPath, "assets/img", fileName);
-
-            using (FileStream stream = new FileStream(path, FileMode.Create, FileAccess.ReadWrite))
-            {
-                await recentWorkComponent.Photo.CopyToAsync(stream);
-
-            }
-
-            recentWorkComponent.FilePath = fileName;
+        
+            recentWorkComponent.FilePath = await _fileService.UploadAsync(recentWorkComponent.Photo,_webHostEnvironment.WebRootPath);
             if (!ModelState.IsValid) return View(recentWorkComponent);
             await _appDbContext.RecentWorkComponents.AddAsync(recentWorkComponent);
             await _appDbContext.SaveChangesAsync();
@@ -81,66 +74,66 @@ namespace front_to_back.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(int id)
+        public async Task<IActionResult> Update(int id,WorkUpdateViewModel model)
         {
             var recentWorkComponents = await _appDbContext.RecentWorkComponents.FindAsync(id);
             if (recentWorkComponents == null) return NotFound();
 
-            return View(recentWorkComponents);
+            model = new WorkUpdateViewModel
+            {
+                Id=recentWorkComponents.Id,
+                FilePath=recentWorkComponents.FilePath,
+                Text=recentWorkComponents.Text,
+                Title=recentWorkComponents.Title,
+            };
+
+            return View(model);
         }
 
         [HttpPost]
 
-        public async Task<IActionResult> Update(int id, RecentWorkComponent recentWorkComponent)
+        public async Task<IActionResult> UpdateWork(int id, WorkUpdateViewModel model)
         {
 
-            if (id != recentWorkComponent.Id) return BadRequest();
+            if (id != model.Id) return BadRequest();
 
             bool isExists = await _appDbContext.RecentWorkComponents.AnyAsync(rcw =>
-            rcw.Title.ToLower().Trim() == recentWorkComponent.Title.ToLower().Trim() && rcw.Id != recentWorkComponent.Id);
+            rcw.Title.ToLower().Trim() == model.Title.ToLower().Trim() && rcw.Id != model.Id);
 
             if (isExists)
             {
                 ModelState.AddModelError("Title", "This name already taken");
-                return View(recentWorkComponent);
+                return View(model);
             }
             var dbrecentworkComponent = await _appDbContext.RecentWorkComponents.FindAsync(id);
             if (dbrecentworkComponent == null) return NotFound();
 
-            if (!recentWorkComponent.Photo.ContentType.Contains("image/"))
+            if (model.Photo != null)
             {
-                ModelState.AddModelError("Photo", "Incorrect type");
-                return View(recentWorkComponent);
+                if (!_fileService.CheckFile(model.Photo))
+                {
+                    ModelState.AddModelError("Photo", "Incorrect type");
+                    return View(model);
+                }
+
+                int maxSize = 1000;
+                if (!_fileService.MaxSize(model.Photo, maxSize))
+                {
+                    ModelState.AddModelError("Photo", $"Photo size must be {maxSize}kb ");
+                    return View(model);
+                }
+
+                _fileService.Delete(_webHostEnvironment.WebRootPath, dbrecentworkComponent.FilePath);
+                dbrecentworkComponent.FilePath = await _fileService.UploadAsync(model.Photo, _webHostEnvironment.WebRootPath);
             }
+          
 
-            if (recentWorkComponent.Photo.Length / 1024 > 1000)
-            {
-                ModelState.AddModelError("Photo", "Photo size must be 1000kb ");
-                return View(recentWorkComponent);
-            }
+            if (!ModelState.IsValid) return View(model);
 
-            string fileName = $"{Guid.NewGuid()}_{recentWorkComponent.Photo.FileName}";
-
-            string path = Path.Combine(_webHostEnvironment.WebRootPath, "assets/img", fileName);
-
-            string oldFilePath = Path.Combine(_webHostEnvironment.WebRootPath, "assets/img", dbrecentworkComponent.FilePath);
-
-            if (System.IO.File.Exists(oldFilePath))
-            {
-                System.IO.File.Delete(oldFilePath);
-            }
-
-            using (FileStream stream = new FileStream(path, FileMode.Create, FileAccess.ReadWrite))
-            {
-                await recentWorkComponent.Photo.CopyToAsync(stream);
-            }
-
-            if (!ModelState.IsValid) return View(recentWorkComponent);
-
-            dbrecentworkComponent.Title = recentWorkComponent.Title;
-            dbrecentworkComponent.Text = recentWorkComponent.Text;
-            dbrecentworkComponent.Photo = recentWorkComponent.Photo;
-            dbrecentworkComponent.FilePath = fileName;
+            dbrecentworkComponent.Title = model.Title;
+            dbrecentworkComponent.Text = model.Text;
+          
+       
 
             await _appDbContext.SaveChangesAsync();
 

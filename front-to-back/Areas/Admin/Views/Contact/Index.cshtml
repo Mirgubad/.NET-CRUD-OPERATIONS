@@ -1,5 +1,5 @@
-﻿@using front_to_back.ViewModels;
-@model ContactIndexViewModel
+﻿@using front_to_back.Areas.Admin.ViewModels;
+@model ContactIntroViewModel
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
@@ -17,17 +17,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>                 
-                                <td>@Model.ContractIntroComponent.Id</td>
-                                <td>@Model.ContractIntroComponent.Title</td>
-                                <td>@Model.ContractIntroComponent.Description</td>
-                            <td><img src="~/assets/img/@Model.ContractIntroComponent.FilePath" /></td>
+                        @foreach (var contractIntroComponent in Model.contractIntroComponents)
+                        {
+                            <tr>
+                                <td>@contractIntroComponent.Id</td>
+                                <td>@contractIntroComponent.Title</td>
+                                <td>@contractIntroComponent.Description</td>
+                                <td><img src="~/assets/img/@contractIntroComponent.FilePath" /></td>
                                 <td>
-                                    <a asp-route-id="@Model.ContractIntroComponent.Id" asp-action="update" asp-controller="contact" asp-area="admin" class="btn btn-primary ">Update</a>
-                                    <a asp-route-id="@Model.ContractIntroComponent.Id" asp-action="delete" asp-controller="contact" asp-area="admin" class="btn btn-danger ">Delete</a>
-                                    <a asp-route-id="@Model.ContractIntroComponent.Id" asp-action="details" asp-controller="contact" asp-area="admin" class="btn btn-warning ">Details</a>
+                                    <a asp-route-id="@contractIntroComponent.Id" asp-action="update" asp-controller="contact" asp-area="admin" class="btn btn-primary ">Update</a>
+                                    <a asp-route-id="@contractIntroComponent.Id" asp-action="delete" asp-controller="contact" asp-area="admin" class="btn btn-danger ">Delete</a>
+                                    <a asp-route-id="@contractIntroComponent.Id" asp-action="details" asp-controller="contact" asp-area="admin" class="btn btn-warning ">Details</a>
                                 </td>
-                        </tr>
+                            </tr>
+                        }
+                       
                     </tbody>
                 </table>
             </div>

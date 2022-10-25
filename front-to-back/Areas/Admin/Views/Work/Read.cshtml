@@ -7,6 +7,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Details </h4>
+                        <div class=" d-flex justify-content-center">
+                            <img class="img-thumbnail" style="width:300px;height:300px" src="~/assets/img/@Model.FilePath" />
+                        </div>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -14,7 +17,7 @@
                                         <th>Id</th>
                                         <th>Title</th>
                                         <th>Text</th>
-                                        <th>FilePath</th>
+                                    
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -22,7 +25,7 @@
                                         <th>@Model.Id</th>
                                         <td>@Model.Title</td>
                                         <td>@Model.Text</td>
-                                        <td>@Model.FilePath</td>
+                                     
                                     </tr>
                                 </tbody>
                             </table>
