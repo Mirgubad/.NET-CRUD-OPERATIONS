@@ -30,6 +30,8 @@ namespace front_to_back.Areas.Admin.Controllers
 
             return View(model);
         }
+
+        #region Create
         [HttpGet]
         public async Task<IActionResult> Create()
         {  
@@ -55,6 +57,10 @@ namespace front_to_back.Areas.Admin.Controllers
             return RedirectToAction("index");
         }
 
+        #endregion
+
+
+        #region Update
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
@@ -65,7 +71,6 @@ namespace front_to_back.Areas.Admin.Controllers
         }
 
         [HttpPost]
-
         public async Task<IActionResult> Update(int id, Category category)
         {
             if (!ModelState.IsValid) return View(category);
@@ -89,10 +94,25 @@ namespace front_to_back.Areas.Admin.Controllers
             await _appDbContext.SaveChangesAsync();
 
             return RedirectToAction("index");
+        }
+        #endregion
 
 
+        #region Details
+        [HttpGet]
+        public async Task<IActionResult>Details(int id)
+        {
+            var category = await _appDbContext.Categories.FindAsync(id);
+
+            if (category==null) return NotFound();
+
+            return View(category);
         }
 
+        #endregion
+
+
+        #region Delete
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
@@ -101,6 +121,7 @@ namespace front_to_back.Areas.Admin.Controllers
 
             return View(category);
         }
+
 
 
         [HttpPost]
@@ -116,14 +137,6 @@ namespace front_to_back.Areas.Admin.Controllers
             return RedirectToAction("index");
         }
 
-        [HttpGet]
-        public async Task<IActionResult>Read(int id)
-        {
-            var category = await _appDbContext.Categories.FindAsync(id);
-
-            if (category==null) return NotFound();
-
-            return View(category);
-        }
+        #endregion
     }
 }

@@ -19,9 +19,6 @@ namespace front_to_back.Areas.Admin.Controllers
             return View();
         }
 
-        
-
-      
     }
 
 }

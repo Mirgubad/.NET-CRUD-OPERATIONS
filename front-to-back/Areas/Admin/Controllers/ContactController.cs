@@ -41,6 +41,7 @@ namespace front_to_back.Areas.Admin.Controllers
             return View(model);
         }
 
+        #region Create
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -75,6 +76,9 @@ namespace front_to_back.Areas.Admin.Controllers
             return RedirectToAction("index");
         }
 
+        #endregion
+
+        #region Update
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
@@ -122,9 +126,7 @@ namespace front_to_back.Areas.Admin.Controllers
                 _fileService.UploadAsync(model.Photo, _webHostEnvironment.WebRootPath);
             }
 
-
             if (!ModelState.IsValid) return View(model);
-
 
             dbcontractIntroComponent.Title = model.Title;
             dbcontractIntroComponent.Description = model.Description;
@@ -134,6 +136,22 @@ namespace front_to_back.Areas.Admin.Controllers
             return RedirectToAction("index");
         }
 
+        #endregion
+
+        #region Details
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var dbcontactIntroComponent = await _appDbContext.ContractIntroComponent.FindAsync(id);
+            if (dbcontactIntroComponent == null) return NotFound();
+
+            return View(dbcontactIntroComponent);
+
+        }
+
+        #endregion
+
+        #region Delete
         [HttpGet]
 
         public async Task<IActionResult> Delete(int id)
@@ -145,7 +163,7 @@ namespace front_to_back.Areas.Admin.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult>DeleteComponent(int id)
+        public async Task<IActionResult> DeleteComponent(int id)
         {
             var dbContactIntroComponent = await _appDbContext.ContractIntroComponent.FindAsync(id);
             if (dbContactIntroComponent == null) return NotFound();
@@ -157,15 +175,7 @@ namespace front_to_back.Areas.Admin.Controllers
             return RedirectToAction("index");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Details(int id)
-        {
-            var dbcontactIntroComponent = await _appDbContext.ContractIntroComponent.FindAsync(id);
-            if (dbcontactIntroComponent == null) return NotFound();
-
-            return View(dbcontactIntroComponent);
-
-        }
+        #endregion
     }
 
 }

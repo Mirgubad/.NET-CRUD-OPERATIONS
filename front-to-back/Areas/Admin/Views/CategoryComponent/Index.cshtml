@@ -12,7 +12,8 @@
                             <th>Id</th>
                             <th>Title</th>
                             <th>Description</th>
-                            <th>Category Id</th>
+                            <th>Photo</th>
+                            <th>Category</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -22,13 +23,15 @@
                             <tr>
                                 <td>@categoryComponent.Id</td>
                                 <td>@categoryComponent.Title</td>
-                                <td>@categoryComponent.Description</td>
-                                <td>@categoryComponent.CategoryId</td>
+                                <td>@Html.Raw(categoryComponent.Description)</td>
                                 <td>
+                                    <img src="~/assets/img/@categoryComponent.FilePath" />
+                                </td>
+                                <td>@categoryComponent.Category.Title</td>
+                                <td class="d-flex align-content-between">
                                     <a asp-route-id="@categoryComponent.Id" asp-action="update" asp-controller="categorycomponent" asp-area="admin" class="btn btn-primary">Update</a>
-                                    <a asp-route-id="@categoryComponent.Id" asp-action="delete" asp-controller="categorycomponent" asp-area="admin" class="btn btn-danger">Delete</a>
                                     <a asp-route-id="@categoryComponent.Id" asp-action="details" asp-controller="categorycomponent" asp-area="admin" class="btn btn-warning">Details</a>
-
+                                    <a asp-route-id="@categoryComponent.Id" asp-action="delete" asp-controller="categorycomponent" asp-area="admin" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                         }

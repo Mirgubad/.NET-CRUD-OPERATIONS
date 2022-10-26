@@ -27,6 +27,7 @@ namespace front_to_back.Areas.Admin.Controllers
             };
             return View(model);
         }
+        #region Create
 
         [HttpGet]
         public IActionResult Create()
@@ -68,5 +69,7 @@ namespace front_to_back.Areas.Admin.Controllers
             return RedirectToAction("Index");
 
         }
+
+        #endregion
     }
 }

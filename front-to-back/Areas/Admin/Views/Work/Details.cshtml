@@ -1,7 +1,6 @@
 ﻿@using front_to_back.Models
 @model RecentWorkComponent;
-<div class="main-panel">
-    <div class="content-wrapper">
+
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
@@ -16,16 +15,14 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Title</th>
-                                        <th>Text</th>
-                                    
+                                        <th>Text</th>                           
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <th>@Model.Id</th>
                                         <td>@Model.Title</td>
-                                        <td>@Model.Text</td>
-                                     
+                                        <td>@Model.Text</td>                               
                                     </tr>
                                 </tbody>
                             </table>
@@ -35,6 +32,3 @@
                 </div>
             </div>
         </div>
-    </div>
-
-</div>

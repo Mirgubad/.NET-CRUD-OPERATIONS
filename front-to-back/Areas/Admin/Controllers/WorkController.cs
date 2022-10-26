@@ -33,6 +33,8 @@ namespace front_to_back.Areas.Admin.Controllers
             return View(model);
         }
 
+        #region Create 
+
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -72,6 +74,10 @@ namespace front_to_back.Areas.Admin.Controllers
             await _appDbContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+        #endregion
+
+        #region Update
 
         [HttpGet]
         public async Task<IActionResult> Update(int id,WorkUpdateViewModel model)
@@ -140,6 +146,20 @@ namespace front_to_back.Areas.Admin.Controllers
             return RedirectToAction("index");
         }
 
+        #endregion
+
+        #region Details
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var recentworkComponent = await _appDbContext.RecentWorkComponents.FindAsync(id);
+            if (recentworkComponent == null) return NotFound();
+            return View(recentworkComponent);
+        }
+        #endregion
+
+        #region Delete
+
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
@@ -166,12 +186,6 @@ namespace front_to_back.Areas.Admin.Controllers
             return RedirectToAction("index");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Read(int id)
-        {
-            var recentworkComponent = await _appDbContext.RecentWorkComponents.FindAsync(id);
-            if (recentworkComponent == null) return NotFound();
-            return View(recentworkComponent);
-        }
+        #endregion
     }
 }
