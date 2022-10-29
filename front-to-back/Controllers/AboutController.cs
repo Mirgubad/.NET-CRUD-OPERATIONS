@@ -23,15 +23,13 @@ namespace front_to_back.Controllers
                 new OurPartner{ClassName= "bxs-bolt-circle"},
                 new OurPartner{ClassName= "bxs-spa"},
             };
-        
-           
 
             var model = new AboutIndexViewModel
             {
-              
+
                 ourPartners = ourpartners,
-              
-                
+
+                teamMembers = await _appDbContext.TeamMembers.ToListAsync()
             };
             return View(model);
         }

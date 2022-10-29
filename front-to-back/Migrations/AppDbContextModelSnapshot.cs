@@ -102,7 +102,6 @@ namespace front_to_back.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FilePath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
@@ -135,6 +134,52 @@ namespace front_to_back.Migrations
                     b.ToTable("CreateWithUs");
                 });
 
+            modelBuilder.Entity("front_to_back.Models.FeaturedWorkComponent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FeaturedWorkComponents");
+                });
+
+            modelBuilder.Entity("front_to_back.Models.FeaturedWorkComponentPhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("FeaturedWorkComponentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FeaturedWorkComponentId");
+
+                    b.ToTable("FeaturedWorkComponentPhotos");
+                });
+
             modelBuilder.Entity("front_to_back.Models.OurWork", b =>
                 {
                     b.Property<int>("Id")
@@ -156,7 +201,6 @@ namespace front_to_back.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Type")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -198,7 +242,6 @@ namespace front_to_back.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("FilePath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Text")
@@ -227,7 +270,6 @@ namespace front_to_back.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("FilePath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Text")
@@ -243,6 +285,33 @@ namespace front_to_back.Migrations
                     b.ToTable("RecentWorkComponents");
                 });
 
+            modelBuilder.Entity("front_to_back.Models.TeamMember", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Position")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TeamMembers");
+                });
+
             modelBuilder.Entity("front_to_back.Models.CategoryComponent", b =>
                 {
                     b.HasOne("front_to_back.Models.Category", "Category")
@@ -254,9 +323,25 @@ namespace front_to_back.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("front_to_back.Models.FeaturedWorkComponentPhoto", b =>
+                {
+                    b.HasOne("front_to_back.Models.FeaturedWorkComponent", "FeaturedWorkComponent")
+                        .WithMany("FeaturedWorkComponentPhotos")
+                        .HasForeignKey("FeaturedWorkComponentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FeaturedWorkComponent");
+                });
+
             modelBuilder.Entity("front_to_back.Models.Category", b =>
                 {
                     b.Navigation("CategoryComponents");
+                });
+
+            modelBuilder.Entity("front_to_back.Models.FeaturedWorkComponent", b =>
+                {
+                    b.Navigation("FeaturedWorkComponentPhotos");
                 });
 #pragma warning restore 612, 618
         }

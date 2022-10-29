@@ -4,7 +4,6 @@ namespace front_to_back.Helpers
 {
     public class FileService : IFileService
     {
-
         public async Task<string> UploadAsync(IFormFile file, string webRootPath)
         {
             var fileName = $"{Guid.NewGuid()}_{file.FileName}";
@@ -32,7 +31,6 @@ namespace front_to_back.Helpers
             }
             return false;
         }
-
         public bool MaxSize(IFormFile file, int maxSize)
         {
             if (file.Length / 1024 > maxSize)

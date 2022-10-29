@@ -19,7 +19,6 @@ namespace front_to_back.Areas.Admin.ViewModels.Category
         [Required]
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
-
         public List<SelectListItem>? Categories { get; set; }
 
 

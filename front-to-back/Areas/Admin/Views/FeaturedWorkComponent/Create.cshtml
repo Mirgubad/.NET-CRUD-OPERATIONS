@@ -1,0 +1,63 @@
+﻿@using front_to_back.Areas.Admin.ViewModels.FeaturedWorkComponent
+@model FeaturedWorkComponentCreateViewModel;
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Category Adder</h4>
+                        <form method="post" enctype="multipart/form-data" asp-action="create" asp-controller="featuredworkcomponent" asp-area="admin" class="forms-sample">
+                            <div class="form-group">
+                                <label asp-for="Title"></label>
+                                <input asp-for="Title" class="form-control">
+                                <span class="text-danger" asp-validation-for="Title"></span>
+                                <div class="form-group">
+                                    <label asp-for="Description"></label>
+                                    <textarea asp-for="Description" class="form-control"></textarea>
+                                    <span class="text-danger" asp-validation-for="Description"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Photos"></label>
+                                    <input asp-for="Photos" class="form-control">
+                                    @{
+                                        if (Html.ViewData.ModelState["Photos"] != null)
+                                        {
+                                            foreach (var error in Html.ViewData.ModelState["Photos"].Errors)
+                                            {
+                                                <li class="text-danger">@error.ErrorMessage</li>
+                                            }
+                                        }
+                                    }
+                                </div>
+                                <button type="submit" class="btn btn-primary me-2">Submit</button>
+                                <button asp-action="index" asp-controller="featuredworkcomponent" asp-area="admin" class="btn btn-light">Cancel</button>
+                        </div>
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    @await Html.PartialAsync("_FormValidationPartial")
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/classic/ckeditor.js"></script>
+
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#Description'))
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+}
+
+
+

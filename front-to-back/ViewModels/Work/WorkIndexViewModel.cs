@@ -10,6 +10,8 @@ namespace front_to_back.ViewModels.Work
         public List <CategoryComponent> CategoryComponents { get; set; }
 
         public List <RecentWorkComponent>RecentWorkComponents { get; set; }
+        public FeaturedWorkComponent FeaturedWorkComponent { get; set; }
+        
 
     }
 }

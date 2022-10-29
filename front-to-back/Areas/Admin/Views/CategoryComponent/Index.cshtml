@@ -20,6 +20,7 @@
                     <tbody>
                         @foreach (var categoryComponent in Model.CategoryComponents)
                         {
+                        
                             <tr>
                                 <td>@categoryComponent.Id</td>
                                 <td>@categoryComponent.Title</td>
@@ -30,7 +31,7 @@
                                 <td>@categoryComponent.Category.Title</td>
                                 <td class="d-flex align-content-between">
                                     <a asp-route-id="@categoryComponent.Id" asp-action="update" asp-controller="categorycomponent" asp-area="admin" class="btn btn-primary">Update</a>
-                                    <a asp-route-id="@categoryComponent.Id" asp-action="details" asp-controller="categorycomponent" asp-area="admin" class="btn btn-warning">Details</a>
+                                    <a asp-route-id="@categoryComponent.Id" asp-action="details" asp-controller="categorycomponent" asp-area="admin" class="btn btn-warning mx-3">Details</a>
                                     <a asp-route-id="@categoryComponent.Id" asp-action="delete" asp-controller="categorycomponent" asp-area="admin" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>

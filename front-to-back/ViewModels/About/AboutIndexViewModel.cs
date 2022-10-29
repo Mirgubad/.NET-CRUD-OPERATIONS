@@ -9,5 +9,6 @@ namespace front_to_back.ViewModels.About
         public List<Aims> Aims { get; set; }
         public List<ObjectiveComponentViewComponent> objectiveComponentViewComponents { get; set; }
         public List<OurWork> ourWorks { get; set; }
+        public List<TeamMember> teamMembers { get; set; }
     }
 }

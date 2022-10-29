@@ -24,6 +24,8 @@ namespace front_to_back.Controllers
                 Categories = await _appDbContext.Categories.ToListAsync(),
                 CategoryComponents = await _appDbContext.CategoryComponents.ToListAsync(),
                 RecentWorkComponents = await _appDbContext.RecentWorkComponents.ToListAsync(),
+                FeaturedWorkComponent=await _appDbContext.FeaturedWorkComponents
+                .Include(rcwp=>rcwp.FeaturedWorkComponentPhotos.OrderBy(order => order.Order)).FirstOrDefaultAsync()
 
             };
             return View(model);

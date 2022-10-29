@@ -1,0 +1,42 @@
+﻿@using front_to_back.Areas.Admin.ViewModels.TeamMember
+@model TeamMemberDetailsViewModel;
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Details </h4>
+                        <div class="table-responsive">
+                            <h3 class="text-center">Photo</h3>
+                            <div class="d-flex justify-content-center">
+                                <img class="img-thumbnail" style="width:200px;height:200px;" src="~/assets/img/@Model.PhotoPath" />
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Surname</th>
+                                        <th>Position</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@Model.Id</td>
+                                        <td>@Model.Name</td>
+                                        <td>@Model.Surname</td>
+                                        <td>@Model.Position</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <a asp-action="index" asp-controller="teammember" asp-area="admin" class="btn btn-light  mt-3">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

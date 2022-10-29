@@ -88,7 +88,7 @@ namespace front_to_back.Areas.Admin.Controllers
 
             return RedirectToAction("index");
         }
-#endregion
+        #endregion
 
         #region Update
         public async Task<IActionResult> Update(int id)
@@ -104,17 +104,15 @@ namespace front_to_back.Areas.Admin.Controllers
                     Value = c.Id.ToString()
                 })
                .ToListAsync(),
-                Id=categoryComponent.Id,
-                CategoryId=categoryComponent.CategoryId,
-                Description=categoryComponent.Description,  
-                FilePath=categoryComponent.FilePath,
-                Title=categoryComponent.Title,    
-               
+                Id = categoryComponent.Id,
+                CategoryId = categoryComponent.CategoryId,
+                Description = categoryComponent.Description,
+                FilePath = categoryComponent.FilePath,
+                Title = categoryComponent.Title,
             };
             return View(model);
-
         }
-      
+
         [HttpPost]
         public async Task<IActionResult> Update(int id, CategoryComponentUpdateViewModel model)
         {
@@ -128,8 +126,19 @@ namespace front_to_back.Areas.Admin.Controllers
             var dbcategoryComponent = await _appDbContext.CategoryComponents.FindAsync(id);
             if (dbcategoryComponent == null) return NotFound();
 
-            if (!ModelState.IsValid) return View(model);
+            bool isExists = await _appDbContext.CategoryComponents
+                .AnyAsync(cc => cc.Title.ToLower().Trim() == model.Title.ToLower().Trim()
+                && id != dbcategoryComponent.Id);
 
+            if (isExists)
+            {
+                ModelState.AddModelError("Title", "This category already created");
+
+                return View(model);
+            }
+
+            if (id != model.Id) BadRequest();
+            if (!ModelState.IsValid) return View(model);
 
             if (model.Photo != null)
             {
@@ -144,12 +153,15 @@ namespace front_to_back.Areas.Admin.Controllers
                     ModelState.AddModelError("Photo", $"Photo size must be less {maxSize}kb");
                     return View(model);
                 }
-                _fileService.Delete(_webHostEnvironment.WebRootPath,dbcategoryComponent.FilePath);
+                _fileService.Delete(_webHostEnvironment.WebRootPath, dbcategoryComponent.FilePath);
                 dbcategoryComponent.FilePath = await _fileService.UploadAsync(model.Photo, _webHostEnvironment.WebRootPath);
-                
             }
-         
+
+            var category = await _appDbContext.Categories.FindAsync(model.CategoryId);
+            if (category == null) return NotFound();
+
             dbcategoryComponent.CategoryId = model.CategoryId;
+
             dbcategoryComponent.Title = model.Title;
             dbcategoryComponent.Description = model.Description;
             await _appDbContext.SaveChangesAsync();
@@ -176,7 +188,7 @@ namespace front_to_back.Areas.Admin.Controllers
                 Id = dbcataegoryComponent.Id,
                 Title = dbcataegoryComponent.Title,
                 Description = dbcataegoryComponent.Description,
-                FilePath = dbcataegoryComponent.FilePath,   
+                FilePath = dbcataegoryComponent.FilePath,
                 CategoryId = dbcataegoryComponent.CategoryId,
 
             };
@@ -189,8 +201,8 @@ namespace front_to_back.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var dbcategoryComponent = await _appDbContext.CategoryComponents.FindAsync(id);
-            if (dbcategoryComponent == null) return NotFound(); 
-            if(id!=dbcategoryComponent.Id) return BadRequest();
+            if (dbcategoryComponent == null) return NotFound();
+            if (id != dbcategoryComponent.Id) return BadRequest();
 
             var model = new CategoryComponentDeleteViewModel
             {
@@ -200,13 +212,13 @@ namespace front_to_back.Areas.Admin.Controllers
                     Value = c.Id.ToString()
                 })
                .ToListAsync(),
-                Id =dbcategoryComponent.Id,
-                Title=dbcategoryComponent.Title,
-                Description=dbcategoryComponent.Description,
-               CategoryId=dbcategoryComponent.CategoryId,
-               FilePath=dbcategoryComponent.FilePath, 
-               
-               
+                Id = dbcategoryComponent.Id,
+                Title = dbcategoryComponent.Title,
+                Description = dbcategoryComponent.Description,
+                CategoryId = dbcategoryComponent.CategoryId,
+                FilePath = dbcategoryComponent.FilePath,
+
+
             };
 
             return View(model);
@@ -222,7 +234,7 @@ namespace front_to_back.Areas.Admin.Controllers
 
             if (id != dbcategoryComponent.Id) return BadRequest();
 
-             _appDbContext.CategoryComponents.Remove(dbcategoryComponent);
+            _appDbContext.CategoryComponents.Remove(dbcategoryComponent);
 
             await _appDbContext.SaveChangesAsync();
 

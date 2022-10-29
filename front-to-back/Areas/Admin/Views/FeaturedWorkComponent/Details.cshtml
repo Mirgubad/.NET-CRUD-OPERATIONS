@@ -1,0 +1,40 @@
+﻿@using front_to_back.Areas.Admin.ViewModels.FeaturedWorkComponent;
+@model FeaturedWorkComponentDetailsViewModel
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Featured Work Component Details</h4>
+            <h3>Photos:</h3>
+            <div class="d-flex justify-content-center">
+                
+                @foreach (var photo in Model.FeaturedWorkComponentPhotos)
+                {
+                   
+
+                    <span>Order:@photo.Order</span>
+                    <img class="img-thumbnail" style="width:150px;height:150px;" src="~/assets/img/@photo.Name" />
+                }
+
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Model.Id</td>
+                            <td>@Model.Title</td>
+                            <td>@Html.Raw(Model.Description)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a asp-action="index" asp-controller="featuredworkcomponent" class="btn btn-outline-google">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>

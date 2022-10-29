@@ -1,0 +1,42 @@
+﻿@using front_to_back.Areas.Admin.ViewModels.TeamMember;
+@model TeamMemberIndexViewModel
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Work Components</h4>
+            <a asp-action="create" asp-controller="teammember" asp-area="admin" class="btn btn-success">Add</a>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Surname</th>
+                            <th>Position</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var teamMember in Model.TeamMembers)
+                        {
+                            <tr>
+                                <td>@teamMember.Id</td>
+                                <td>@teamMember.Name</td>
+                                <td>@teamMember.Surname</td>
+                                <td>@teamMember.Position</td>
+                                <td><img src="~/assets/img/@teamMember.PhotoPath"></td>
+                                <td class="d-flex">
+                                    <a asp-route-id="@teamMember.Id" asp-action="update" asp-controller="teammember" asp-area="admin" class="btn btn-primary">Update</a>
+                                    <a asp-route-id="@teamMember.Id" asp-action="details" asp-controller="teammember" asp-area="admin" class="btn btn-success mx-3">Details</a>
+                                    <form method="post" asp-route-id="@teamMember.Id" asp-action="delete" asp-controller="teammember" asp-area="admin">
+                                        <button type="submit" onclick="confirm('Are you sure?')" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

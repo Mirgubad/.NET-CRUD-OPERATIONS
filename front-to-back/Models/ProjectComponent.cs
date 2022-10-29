@@ -13,7 +13,6 @@ namespace front_to_back.Models
 
         public string? FilePath { get; set; }
 
-
         public string Type { get; set; }
 
         [NotMapped]
