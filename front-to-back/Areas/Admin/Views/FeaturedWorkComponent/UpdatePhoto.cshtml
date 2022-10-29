@@ -8,13 +8,13 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Category Adder</h4>
-                        <form method="post" enctype="multipart/form-data" asp-action="updatephoto" asp-controller="featuredworkcomponent" asp-area="admin" class="forms-sample">
+                        <form method="post" enctype="multipart/form-data" asp-action="updatephoto" asp-controller="featuredworkcomponent" asp-area="admin" class="forms-sample col-3">
                             <div class="form-group">
                                 <label asp-for="Order"></label>
                                 <input asp-for="Order" class="form-control">
                                 <span class="text-danger" asp-validation-for="Order"></span>
                            
-                                <button type="submit" class="btn btn-primary me-2">Submit</button>
+                                <button type="submit" class="btn btn-primary ">Submit</button>
                                 <a asp-action="update" asp-controller="featuredworkcomponent" asp-area="admin" asp-route-id="@Model.FeaturedWorkComponentId" class="btn btn-light">Cancel</a>
                             </div>
                         </form>

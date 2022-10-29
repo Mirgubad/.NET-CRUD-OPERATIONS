@@ -262,7 +262,7 @@ namespace front_to_back.Areas.Admin.Controllers
             _appDbContext.FeaturedWorkComponentPhotos.Remove(photo);
             _fileService.Delete(_webHostEnvironment.WebRootPath, photo.Name);
             await _appDbContext.SaveChangesAsync();
-            return RedirectToAction("index");
+            return RedirectToAction("update", "featuredworkcomponent", new {Id=photo.FeaturedWorkComponentId});
         }
         #endregion
     }

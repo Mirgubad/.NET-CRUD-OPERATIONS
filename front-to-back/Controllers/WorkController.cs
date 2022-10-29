@@ -16,9 +16,6 @@ namespace front_to_back.Controllers
         }
         public async Task<IActionResult> Index()
         {
-
-          
-           
             var model = new WorkIndexViewModel
             {
                 Categories = await _appDbContext.Categories.ToListAsync(),
