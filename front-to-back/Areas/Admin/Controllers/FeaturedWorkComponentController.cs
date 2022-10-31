@@ -36,7 +36,7 @@ namespace front_to_back.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var featuredWorkComponent = await _appDbContext.FeaturedWorkComponents             
+            var featuredWorkComponent = await _appDbContext.FeaturedWorkComponents
                 .Include(rwc => rwc.FeaturedWorkComponentPhotos)
                 .FirstOrDefaultAsync();
             if (featuredWorkComponent != null) return NotFound();
@@ -236,8 +236,8 @@ namespace front_to_back.Areas.Admin.Controllers
             var model = new FeaturedWorkComponentUpdatePhotoViewModel
             {
                 Order = photo.Order,
-                FeaturedWorkComponentId=photo.FeaturedWorkComponentId
-                
+                FeaturedWorkComponentId = photo.FeaturedWorkComponentId
+
             };
             return View(model);
         }
@@ -263,7 +263,7 @@ namespace front_to_back.Areas.Admin.Controllers
             _appDbContext.FeaturedWorkComponentPhotos.Remove(photo);
             _fileService.Delete(_webHostEnvironment.WebRootPath, photo.Name);
             await _appDbContext.SaveChangesAsync();
-            return RedirectToAction("update", "featuredworkcomponent", new {Id=photo.FeaturedWorkComponentId});
+            return RedirectToAction("update", "featuredworkcomponent", new { Id = photo.FeaturedWorkComponentId });
         }
         #endregion
     }
