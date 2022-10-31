@@ -122,6 +122,7 @@ namespace front_to_back.Areas.Admin.Controllers
             var dbfeaturedWorkComponent = await _appDbContext.FeaturedWorkComponents
                .Include(rwc => rwc.FeaturedWorkComponentPhotos)
                .FirstOrDefaultAsync();
+            model.FeaturedWorkComponentPhotos = dbfeaturedWorkComponent.FeaturedWorkComponentPhotos.ToList();
             if (dbfeaturedWorkComponent == null) return NotFound();
             if (!ModelState.IsValid) return View(model);
             dbfeaturedWorkComponent.Title = model.Title;
